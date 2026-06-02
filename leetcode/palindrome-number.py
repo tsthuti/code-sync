@@ -1,11 +1,23 @@
-class Solution:
-    def isPalindrome(self, x: int) -> bool:
+class Solution(object):
+    def isPalindrome(self, x):
+        """
+        :type x: int
+        :rtype: bool
+        """
+        num_list =[]
+        pal_len = len(str(x))
+
+        for ind, num in enumerate(str(x)):
+            num_list.append(num)
+
+        rev_list = num_list[::-1]
+
         i=0
 
-        # cast num to str and perform basic string comparison
-        num = str(x)
-        rev_num=num[::-1]
-        
-        if(num == rev_num): 
-            return True
-        return False
+        for dig in num_list:
+            if dig!=(rev_list[i]):
+                return False
+            else: 
+                i+=1
+
+        return True
