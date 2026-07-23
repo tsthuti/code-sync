@@ -11,40 +11,30 @@ class Solution(object):
         :rtype: Optional[ListNode]
         """
 
-        # strategy: we will be looping over the values and adding them in the correct order, basically collapsing on top of the other
-        l1_vals = []
-        l2_vals = []
+        strl1=""
+        strl2=""
 
-        l1_current = l1
-        l2_current = l2
+        while l1:
+            strl1 += str(l1.val)
+            l1 = l1.next
+        while l2:
+            strl2 += str(l2.val)
+            l2 = l2.next
 
-        while l1_current.next:
-            l1_vals.append(l1_current.val)
-            l1_current = l1_current.next
-        l1_vals.append(l1_current.val)
+        strl1 = strl1[::-1]
+        strl2 = strl2[::-1]
 
-        while l2_current.next:
-            l2_vals.append(l2_current.val)
-            l2_current = l2_current.next
-        l2_vals.append(l2_current.val)
-
-        l2_vals=l2_vals[::-1]
-        l1_vals=l1_vals[::-1]
+        sum = int(strl1) + int(strl2)
+        sum = str(sum)[::-1]
+        sum = [int(c) for c in sum]
         
-        l1_num = int("".join(str(num) for num in l1_vals))
-        l2_num = int("".join(str(num) for num in l2_vals))
+        head = ListNode()
+        curr = head
 
-        sumnums = l1_num + l2_num
-        reversed_num = str(sumnums)[::-1]
-
-        final = ListNode()
-        current = final
-        for idx, char in enumerate(reversed_num):
-            current.val = int(char)
-            if idx == len(reversed_num)-1:
-                current.next = None
-            else:
-                current.next = ListNode()
-                current = current.next
-
-        return final
+        for c in sum[:-1]:
+            curr.val = c
+            curr.next = ListNode()
+            curr = curr.next
+        curr.val = sum[-1]
+        
+        return head
